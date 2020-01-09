@@ -51,7 +51,6 @@ class UserController extends Controller
         $user->pendidikan_terakhir = $request->pendidikan_terakhir;
         $user->nama_institusi_pendidikan_terakhir = $request->nama_institusi_pendidikan_terakhir;
         $user->domisili = $request->domisili;
-        $user->keahlian = $request->keahlian;
         $user->status = $request->status;
         $user->tanggal_lahir = $request->tanggal_lahir;
         $user->pekerjaan = $request->pekerjaan;
@@ -68,7 +67,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return response()->json($user, 200);
     }
 
     /**
@@ -91,7 +91,15 @@ class UserController extends Controller
      */
     public function update(UserStoreRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        foreach ($request->all() as $key => $value) {
+            if(!$value || !$key){
+                continue;
+            } 
+            $user->$key = $value;
+        }
+        $user->save();
+        return response()->json($user, 200);
     }
 
     /**
@@ -102,6 +110,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
+        return response()->json(null, 204);
     }
 }

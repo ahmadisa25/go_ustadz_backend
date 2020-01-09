@@ -1,8 +1,10 @@
 Dev task:
-1. Bikin git
-2. Bikin Api tokennya jadi di header bukan query string.
+1. Unit testing
+2. Error Filtering
+3. Roles?
+4. Filter supaya id admin nggak di get di API, dan supaya admin nggak bisa diupdate
 
 
 Task List:
 - Admin Panel (Core UI insya Allah) React & Redux
-- Riet GPS Gojek
+- Riset GPS Gojek
