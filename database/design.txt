@@ -1,0 +1,42 @@
+Non-MVP:
+- Cari melalui GPS
+
+MVP:
+
+- CRUD USTADZ
+- Login (lengkap dengan stats online dan offline) dan Register Ustadz
+- CRUD USER
+- Login dan Register user
+
+Nggak perlu bikin yang canggih dulu, yang penting MVP supaya bisa dites
+
+Tabel User:
+- id
+- Nama
+- E-mail
+- Password --> Perlu di enkrip dan kita tes dari backend dulu.
+- Nomor KTP (candidate)
+- Nomor Telpon (candidate)
+- Profile Picture
+- Domisili (select, ada kabupaten dan kotanya di select)
+- Pendidikan Terakhir (select)
+- Status
+- Is Online
+- Kampus
+- Keahlian (diisi dengan Topik_ID yang dia bisa, nanti cari struktur data yang pas.)
+- Pekerjaan (otomatis diisi "ustadz" jika adalah ustadz)
+- Alasan bergabung
+
+
+Tabel Keahlian: 
+Struktur menyimpan ustadz dengan specialty masing2:
+
+Pake key-value storage :
+    - Aqidah (key) = {Aris Munandar, Zidan Zaid, dst.} (value)
+
+Tabel Order:
+- User_id
+- Topik_ID
+- Ustadz_ID
+- Ordered_at
+- Harga (diitung per jam, km yang ditempuh dan biaya satuan service ustadznya)

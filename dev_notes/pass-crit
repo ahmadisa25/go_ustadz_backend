@@ -1,0 +1,7 @@
+pass crit:
+1. ada symbol, uppercase, lowercase dan angka
+2. tidak ada tanggal lahir
+
+after update:
+1. tidak mengadung nama
+2. tidak mengandung passwd yang pernah di pwned.
