@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyDomisiliToLatLong extends Migration
+class AlterLatLongDecimalDigit extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,12 @@ class ModifyDomisiliToLatLong extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('domisili');
-            $table->decimal('latitude_alamat', 8, 6);
-            $table->decimal('longitude_alamat', 8, 6);
+            $table->dropColumn('status');
+            $table->dropColumn('jenis_kelamin');
+            $table->string('status');
+            $table->string('jenis_kelamin');
+            $table->decimal('latitude_alamat', 9, 6)->change();
+            $table->decimal('longitude_alamat', 9, 6)->change();
         });
     }
 
@@ -28,8 +31,7 @@ class ModifyDomisiliToLatLong extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('latitude_alamat');
-            $table->dropColumn('longitude_alamat');
+
         });
     }
 }

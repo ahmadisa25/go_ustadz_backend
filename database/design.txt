@@ -1,3 +1,6 @@
+Urgent:
+- Karena Doctrine/DBAL nggak bisa nerima tipe data enum, maka ada tipe data seperti status pernikahan dan jenis_kelamin nggak bisa difilter. Jadinya, harus difilter dari front-end atau back-end (via Request-nya Laravel)
+
 Non-MVP:
 - Cari melalui GPS
 
@@ -39,6 +42,8 @@ Tabel Order:
 - Ordered_at
 - Harga (diitung per jam, km yang ditempuh dan biaya satuan service ustadznya)
 
+Insya Allaah Ke depannya ada keperluan buat ngecek berapa jumlah order ustadz yang masih dibawah batas maksimalnya.
+
 Jarak antara ustadz dengan user dihitung dari lat dan long alamat user - lat dan long alamat ustadz berdasarkan rumus Haversine formula:
 
 
@@ -54,7 +59,7 @@ var φ1 = lat1.toRadians();
 var φ2 = lat2.toRadians();
 var Δφ = (lat2-lat1).toRadians();
 var Δλ = (lon2-lon1).toRadians();
-
+    
 var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
         Math.cos(φ1) * Math.cos(φ2) *
         Math.sin(Δλ/2) * Math.sin(Δλ/2);
@@ -64,3 +69,23 @@ var d = R * c;
 
 https://www.movable-type.co.uk/scripts/latlong.html
 
+Intinya, cari yang jaraknya maksimal bisa ditempuh selama 15 menit dengan motor (4.5km kurang lebih insya Allaah)
+
+Heuristic:
+1. Jarak deket
+2. Order paling dikit (cari nilai minimumnya di SQL)
+
+Experiments :
+1. Cari hubungan antara jarak tempat dengan a.
+    Nilai a untuk radius maksimal 2863.413752314511 (radius ini dari Jarak Straight Line) = 5.050018906871166e-8 (kurang lebih 15 menit by Motor)
+    Jarak Straight Line dari Ar-Riyadh dan Stadela = 2863.413752314511.
+
+    Query:
+    SELECT * FROM `users` WHERE SIN(RADIANS((users.latitude_alamat - -6.393415)/2)) * SIN(RADIANS((users.latitude_alamat - -6.393415)/2)) + COS(latitude_alamat) * COS(-6.393415) * SIN(RADIANS((users.longitude_alamat - 106.840774)/2)) * SIN(RADIANS((users.longitude_alamat - 106.840774)/2)) <= 5.050018906871166e-8
+
+    -6.393415 = lat ar_riyadh
+    106.840774 = lon ar_riyadh
+
+2. Cari yang ordernya paling sedikit.
+
+SELECT ustadzs.id, ustadzs.nama, COUNT(orders.id) AS JUMLAH_ORDER FROM `ustadzs` LEFT JOIN ORDERS ON orders.server_id = ustadzs.id WHERE keahlian like "%Aqi%" and SIN(RADIANS((latitude_alamat - -6.393415)/2)) * SIN(RADIANS((latitude_alamat - -6.393415)/2)) + COS(latitude_alamat) * COS(-6.393415) * SIN(RADIANS((longitude_alamat - 106.840774)/2)) * SIN(RADIANS((longitude_alamat - 106.840774)/2)) <= 5.050018906871166e-8 and MONTH(orders.created_at) = MONTH(CURRENT_DATE) and YEAR(orders.created_at) = YEAR(CURRENT_DATE)  GROUP BY ustadzs.id HAVING JUMLAH_ORDER < 3. With around 3000 orders, it executed at 70 ms! Alhamdulillah!

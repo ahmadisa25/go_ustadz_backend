@@ -15,3 +15,7 @@ use Illuminate\Http\Request;
 
 Route::apiResource('users', 'UserController');
 Route::apiResource('tokens', 'ApiTokenController');
+
+Route::group(['middleware' => 'cors'], function() {
+	Route::get('nearust', 'UstadzController@getNearestUstadz');
+});
