@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -80,6 +82,16 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    public function login(LoginRequest $request){
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return response()->json(Auth::user(), 201);
+        } else{
+            return response(['msg' => 'Login gagal, silakan masukkan username dan password lagi'], 401);
+        }
     }
 
     /**
