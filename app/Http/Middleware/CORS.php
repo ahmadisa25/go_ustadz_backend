@@ -18,17 +18,17 @@ class CORS
     {
         header("Access-Control-Allow-Origin: http://localhost:3000");
         $headers = [
-            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS, POST',
             'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Requested-With'
         ];
         if($request->getMethod() === "OPTIONS"){
             return Response::make('OK', 200, $headers);
         }
 
-        $response = $next($request);
+        /*$response = $next($request);
         foreach($headers as $key => $value){
             $response->header($key, $value);
-        }
+        }*/
         return $next($request);
     }
 }

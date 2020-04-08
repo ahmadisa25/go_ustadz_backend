@@ -3,8 +3,11 @@ Task List (nggak harus urut):
 2. Api token (refresh), Recaptcha dan fitur keamanan yang diperlukan lainnya, Cross Origin
 3. Kasih contoh privacy policy ke Ust. Hawasyi dan Ust. Fahru
 4. CORS?
+5. Matiin debug, dan handle kalau nggak ada api authnya
+6. Al-Baqarah:21 tadabbur
+7. nearust betulin logicnya masih salah
 
 staging-laravel-web:
 
-web: ondai2 (000webhost)
+web: ondai3 (000webhost)
 pass: alfat1ha

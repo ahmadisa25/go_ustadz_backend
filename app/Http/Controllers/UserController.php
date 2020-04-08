@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use App\User;
 
 use App\Http\Requests\UserStoreRequest;
@@ -11,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    public function __construct()
+    /*public function __construct()
     {
-        $this->middleware('auth:api');
-    }
+        $this->middleware('guest');
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -46,16 +47,18 @@ class UserController extends Controller
         $user = new User;
         $user->nama = $request->nama;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make($request->password);
         $user->nomor_ktp = $request->nomor_ktp;
         $user->telepon = $request->telepon;
         $user->profile_picture = $request->profile_picture;
-        $user->pendidikan_terakhir = $request->pendidikan_terakhir;
-        $user->nama_institusi_pendidikan_terakhir = $request->nama_institusi_pendidikan_terakhir;
-        $user->domisili = $request->domisili;
+       // $user->pendidikan_terakhir = $request->pendidikan_terakhir;
+       // $user->nama_institusi_pendidikan_terakhir = $request->nama_institusi_pendidikan_terakhir;
+        //$user->domisili = $request->domisili;
         $user->status = $request->status;
         $user->tanggal_lahir = $request->tanggal_lahir;
         $user->pekerjaan = $request->pekerjaan;
+        $user->latitude_alamat = $request->latitude_alamat;
+        $user->longitude_alamat = $request->longitude_alamat;
         $user->alasan_bergabung = $request->alasan_bergabung;
         $user->save();
         return response()->json($user, 201);
@@ -86,7 +89,7 @@ class UserController extends Controller
 
     public function login(LoginRequest $request){
         $credentials = $request->only('email', 'password');
-
+        //dd(Auth::attempt($credentials));
         if (Auth::attempt($credentials)) {
             return response()->json(Auth::user(), 201);
         } else{

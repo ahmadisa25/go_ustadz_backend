@@ -14,7 +14,8 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        //cek kalau usernya admin, maka harus auth check dulu
+        return true;
     }
 
     /**
@@ -24,6 +25,7 @@ class UserStoreRequest extends FormRequest
      */
     public function rules()
     {
+         echo $this->method();
          switch($this->method()) {
             case 'POST':
             return [
@@ -31,16 +33,18 @@ class UserStoreRequest extends FormRequest
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W\_])[A-Za-z\d\W\_]/',
                 'telepon' => 'required|digits_between:10,11|unique:users,telepon',
-                'pendidikan_terakhir' => 'required|in:pesantren,sd,smp,sma,s1,s2,s3', 
-                'nama_institusi_pendidikan_terakhir' => 'required',
+                //'pendidikan_terakhir' => 'required|in:pesantren,sd,smp,sma,s1,s2,s3', 
+                //'nama_institusi_pendidikan_terakhir' => 'required',
                 'pekerjaan' => 'required',
-                'domisili' => 'required',
+                //'domisili' => 'required',
                 'status' => 'required|in:lajang,duda,menikah,janda',
                 'tanggal_lahir' => 'required|date',
                 'nomor_ktp' => 'required|digits:16|unique:users,nomor_ktp',
                 'alasan_bergabung' => 'required',
                 'profile_picture' => 'required|url',
-                'jenis_kelamin' => 'required|in:P,W'
+                'jenis_kelamin' => 'required|in:P,W',
+                'latitude_alamat' => 'required|numeric',  
+                'longitude_alamat' => 'required|numeric'
              ];
              break;
             case ($this->method() =='PATCH' || $this->method() == 'PUT') :

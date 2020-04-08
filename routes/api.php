@@ -13,12 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::apiResource('users', 'UserController');
+//Route::apiResource('users', 'UserController');
 Route::apiResource('tokens', 'ApiTokenController');
 
 Route::group(['middleware' => 'cors'], function() {
 	Route::get('nearust', 'UstadzController@getNearestUstadz');
-	Route::resource('orders', 'OrderController');
-	Route::resource('users', 'OrUserController');
+	Route::apiResource('orders', 'OrderController');
+	Route::apiResource('users', 'UserController')->except('login');
 	Route::post('login', 'UserController@login');
 });
