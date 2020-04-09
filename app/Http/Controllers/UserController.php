@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    /*public function __construct()
+    public function __construct()
     {
-        $this->middleware('guest');
-    }*/
+         $this->middleware('auth:api', ['except' => ['store', 'login']]);
+    }
     /**
      * Display a listing of the resource.
      *

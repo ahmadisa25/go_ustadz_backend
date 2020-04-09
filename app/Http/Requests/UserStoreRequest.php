@@ -25,7 +25,6 @@ class UserStoreRequest extends FormRequest
      */
     public function rules()
     {
-         echo $this->method();
          switch($this->method()) {
             case 'POST':
             return [
