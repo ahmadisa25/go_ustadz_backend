@@ -27,7 +27,8 @@ class UstadzRequest extends FormRequest
         switch($this->path()) {
             case 'api/nearust':
                 return [
-                    'id' => 'integer|required',
+                    'lat_alamat' => 'required|numeric',  
+                    'long_alamat' => 'required|numeric',
                     'topic' => 'string|required'
                 ];
                 break;

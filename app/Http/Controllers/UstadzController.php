@@ -17,7 +17,7 @@ class UstadzController extends Controller
     }	
 
     public function getNearestUstadz(UstadzRequest $request){
-    	$ustadz = new UstadzProcessor($request->id, $request->topic);
+    	$ustadz = UstadzProcessor::getNearestUstadz($request->lat_alamat, $request->long_alamat, $request->topic);
     	return response()->json($ustadz, 200);
     }
 }

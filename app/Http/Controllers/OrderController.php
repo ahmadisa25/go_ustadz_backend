@@ -20,7 +20,9 @@ class OrderController extends Controller
 
     public function index()
     {
-        //
+        $orders = Order::orderBy('updated_at', 'desc')->paginate(15);
+
+        return $orders;
     }
 
     /**
