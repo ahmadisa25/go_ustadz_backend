@@ -6,7 +6,7 @@ Task List (nggak harus urut):
 1. Bikin is_activated jadi nullable di tbl user
 2. Betulin handler
 3. Beli Listerine Ba'da Isya
-4. Perbaiki subjek dan pesan email jadi menampung ordernya.
+4. Perbaiki subjek dan pesan email jadi menampung ordernya plus ganti email wartaqi
 
 staging-laravel-web:
 
