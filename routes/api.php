@@ -18,5 +18,6 @@ Route::get('nearust', 'UstadzController@getNearestUstadz');
 Route::get('userorders/{id}', 'UserController@getOrders');
 Route::apiResource('orders', 'OrderController');
 Route::apiResource('users', 'UserController');
+Route::apiResource('pakets', 'PaketController');
 Route::apiResource('tokens', 'ApiTokenController');
 Route::post('login', 'UserController@login');

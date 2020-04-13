@@ -1,14 +1,12 @@
 Task List (nggak harus urut):
 1. Move Back end ke proper server
-2. Api token (refresh), Recaptcha dan fitur keamanan yang diperlukan lainnya, Cross Origin
-4. CORS?
+2. Recaptcha
 5. Matiin debug, dan handle kalau nggak ada api authnya
-6. Al-Baqarah:21 tadabbur
-7. nearust betulin logicnya masih salah
-8. Delete session after 1 jam g login di app misalnya
-9. Get locationnya si user. Backup: kalau nggak bisa pakai yang ada di database aja dulu
-10. Get paket
-11. Get All orders associated to a user
+
+1. Bikin is_activated jadi nullable di tbl user
+2. Betulin handler
+3. Beli Listerine Ba'da Isya
+4. Perbaiki subjek dan pesan email jadi menampung ordernya.
 
 staging-laravel-web:
 

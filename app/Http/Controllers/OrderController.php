@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Order;
 
 use App\Http\Requests\OrderStoreRequest;
+use App\CustomMail;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -20,7 +22,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::orderBy('updated_at', 'desc')->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->paginate(15);
 
         return $orders;
     }
@@ -48,7 +50,18 @@ class OrderController extends Controller
         $order->server_id = $request->server_id;
         $order->paket_id = $request->paket_id;
         $order->topic_id = $request->topic_id;
+        $order->is_active = $request->is_active;
         $order->save();
+        $to_name = 'TO_NAME';
+        $to_email = 'enasni.redrum@gmail.com';
+        $data = array('name'=>"Sam Jose", "body" => "Test mail");
+            
+        Mail::send('custom_mail', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                    ->subject('Artisans Web Testing Mail');
+            $message->from('xunil.malsi@gmail.com','Artisans Web');
+        });
+        //Gmail sending limits = 2000 mail(to, subject, message)s/day
         return response()->json($order, 201);
     }
 
