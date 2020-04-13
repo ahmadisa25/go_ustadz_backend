@@ -64,6 +64,14 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
+    //Untuk ambil orderan user
+
+    public function getOrders($id){
+        $user = User::findOrFail($id);
+        $orders = $user->orders;
+        return response()->json($orders, 200);
+    }
+
     /**
      * Display the specified resource.
      *

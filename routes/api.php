@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 //Route::apiResource('users', 'UserController');
 Route::get('nearust', 'UstadzController@getNearestUstadz');
+Route::get('userorders/{id}', 'UserController@getOrders');
 Route::apiResource('orders', 'OrderController');
 Route::apiResource('users', 'UserController');
 Route::apiResource('tokens', 'ApiTokenController');
